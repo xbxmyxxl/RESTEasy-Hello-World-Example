@@ -32,13 +32,14 @@ public class ItemClient {
 
 	public void GetItem() {
 		try {
-			ClientResponse<String> response = request.get(String.class);
+			Item response = request.get(Item.class).getEntity();
 
-			if (response.getStatus() != 200) {
+			/*if (response.getStatus() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ response.getStatus());
-			}
-
+			}*/
+			response.print();
+			/*
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					new ByteArrayInputStream(response.getEntity().getBytes())));
 
@@ -46,7 +47,7 @@ public class ItemClient {
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
 				System.out.println(output);
-			}
+			}*/
 		} catch (ClientProtocolException e) {
 
 			e.printStackTrace();
