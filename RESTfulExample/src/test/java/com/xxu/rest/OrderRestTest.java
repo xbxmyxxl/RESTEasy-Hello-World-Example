@@ -40,22 +40,24 @@ public class OrderRestTest {
 	@Test
 	public void test() throws Exception {
          ClientRequest request = new ClientRequest(
-				"http://localhost:8080/RESTfulExample/rest/item/status/123");
+				"http://localhost:8080/RESTfulExample/rest/item/status/2");
 		//request.accept("application/json");
         ClientResponse<String> response = request.get(String.class);
         BufferedReader br = new BufferedReader(new InputStreamReader(
 				new ByteArrayInputStream(response.getEntity().getBytes())));
 
 		String output;
+		String return_string="";
 		System.out.println("Output from Server .... \n");
 		while ((output = br.readLine()) != null) {
 
 			System.out.println(output);
+			return_string += output;
 		}
         //String value = ((String) response).readEntity(String.class);
         //response.close();
 		
-        Assert.assertEquals(204, 300);
+        Assert.assertEquals(return_string.replaceAll("\\s+",""), " Request item number : 2 Information for Item number:2  is : 2: iphone from apple                                             429.0".replaceAll("\\s+",""));
 	}
 
 }
