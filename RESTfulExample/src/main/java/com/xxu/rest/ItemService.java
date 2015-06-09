@@ -16,11 +16,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 @Path("/item")
-public class ItemRest {
+public class ItemService {
 	@BadgerFish
 	@GET
 	@Path("/status/{param}")
-	@Produces("application/json")
 	public Item InquiryStatus(@PathParam("param") String ID) {
 		
 		Item return_item = ItemDB.inquiry(ID);
@@ -29,7 +28,7 @@ public class ItemRest {
 	}
 	
 	public static void main(String args[]) {
-		ItemRest b = new ItemRest();
+		ItemService b = new ItemService();
 		Item a = b.InquiryStatus("1");
 		a.print();
 	 }

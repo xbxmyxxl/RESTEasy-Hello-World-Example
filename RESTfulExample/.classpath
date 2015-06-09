@@ -40,5 +40,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/postgresql-9.4-1201.jdbc4.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/postgresql-9.4-1201.jdbc4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-tests.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-test-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

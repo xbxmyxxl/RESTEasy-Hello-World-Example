@@ -6,7 +6,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 @Path("order")
-public class OrderRest {
+public class OrderService {
 	@GET
 	@Path("/status/{param}")
 	public Response InquiryStatus(@PathParam("param") String msg) {

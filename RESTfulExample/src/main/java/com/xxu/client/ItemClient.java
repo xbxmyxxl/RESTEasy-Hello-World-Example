@@ -2,8 +2,12 @@ package com.xxu.client;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.math.BigInteger;
 
 import com.xxu.database.ItemDB;
 import com.xxu.type.*;
@@ -17,7 +21,13 @@ public class ItemClient {
 
 	public ItemClient(String ID) {
 		try {
+			File file = new File("private.key");
+			  FileInputStream file_input = new FileInputStream(file);
+			  ObjectInputStream object_input = new ObjectInputStream(file_input);
+			  if (object_input == null)System.out.println("error!!!!!!!!!!!!!!!!!");
 
+				BigInteger modulus = (BigInteger) object_input.readObject();
+				BigInteger exponent = (BigInteger) object_input.readObject();
 			request = new ClientRequest(
 					"http://localhost:8080/RESTfulExample/rest/item/status/"
 							+ ID + "/");
