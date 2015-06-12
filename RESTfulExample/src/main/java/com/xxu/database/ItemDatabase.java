@@ -3,12 +3,7 @@ package com.xxu.database;
 import java.sql.*;
 import com.xxu.type.*;
 
-public class ItemDB extends PostgreSql {
-	private static Statement stmt = null;
-	private static Connection c = null;
-	private static int status = 1 ;
-	private static final int OPEN_SUCCESS = 0;
-	private static final int OPEN_FAILED = 1;
+public class ItemDatabase extends PostgreSql {
 	private static final String db_table_name = "item";
 	
 	public static Item inquiry( String ID)
@@ -57,7 +52,7 @@ public class ItemDB extends PostgreSql {
     }
 	
 	public static void main(String args[]) {
-		Item a = ItemDB.inquiry("1");
+		Item a = ItemDatabase.inquiry("1");
 		a.print();
 	 }
 

@@ -65,4 +65,11 @@ public class Item {
 	public void print() {
 		System.out.println(this.id + this.name + this.brand + this.price);
 	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", name=" + name + ", brand=" + brand
+				+ ", price=" + price + ", reduced_price=" + reduced_price
+				+ ", quantity=" + quantity + "]";
+	}
 }

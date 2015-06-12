@@ -1,5 +1,5 @@
 package com.xxu.security;
-
+import java.util.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,10 +24,11 @@ import javax.crypto.Cipher;
 
 import java.util.Arrays;
 
-//current thing working on 
+import com.xxu.database.PublicKeyDatabase;
+import com.xxu .util.*
+;//current thing working on 
 public class RSAServer {
 	private static final String PUBLIC_KEY_FILE = "Public.key";
-	final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	static String  public_key_test = "30820122300D06092A864886F70D01010105000382010F003082010A02820101009E421B1618BA"
 			+ "641A6D19BC51107DA739A038F2D4106D1FD3853070F8956EEC74A2181AB9D6CBF8A45999CB60F0406EC72A5ED146DFB9CAA197501E0B6D43"
 			+ "47308F3E2A3191553FEC62FBFFD3A4F63A0787C85966240497820BF2F73AD14F6AD2EA1763099104C7C85E295F45897EAEF3BA536708C6"
@@ -41,40 +42,26 @@ public class RSAServer {
 		System.out.println(test_string);
 		PublicKey pubKey = readPublicKeyFromFile(PUBLIC_KEY_FILE);
 		System.out.println(Arrays.toString(pubKey.getEncoded()));
-		System.out.println(Arrays.toString(HexToBytes(RSAServer.public_key_test)));
+		System.out.println(Arrays.toString(ByteHexConversion.HexToBytes(RSAServer.public_key_test)));
 		
-		byte[] encryptedData = RSAServer.encryptData(test_string);
-		System.out.println(BytesToHex(encryptedData));
+		System.out.println("comparing two strings :"+PublicKeyDatabase.getPublicKeyById("1").equals(public_key_test));
+		
+		byte[] encryptedData1 = RSAServer.encryptData(test_string,public_key_test);
+		byte[] encryptedData2 = RSAServer.encryptData(test_string,"1");
+		System.out.println(ByteHexConversion.BytesToHex(encryptedData1));
+		System.out.println(ByteHexConversion.BytesToHex(encryptedData2));
 	}
 
-	public static String BytesToHex(byte[] bytes) {
-		char[] hexChars = new char[bytes.length * 2];
-		for (int j = 0; j < bytes.length; j++) {
-			int v = bytes[j] & 0xFF;
-			hexChars[j * 2] = hexArray[v >>> 4];
-			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-		}
-		return new String(hexChars);
-	}
 
-	public static byte[] HexToBytes(String s) {
-		int len = s.length();
-		byte[] data = new byte[len / 2];
-		for (int i = 0; i < len; i += 2) {
-			data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character
-					.digit(s.charAt(i + 1), 16));
-		}
-		return data;
-	}
-
-	public static byte[] encryptData(String data) throws IOException {
+	public static byte[] encryptData(String data,String id) throws IOException {
 		System.out.println("\n----------------ENCRYPTION STARTED------------");
 		
 		System.out.println("Data Before Encryption :" + data);
 		byte[] dataToEncrypt = data.getBytes();
 		byte[] encryptedData = null;
 		try {
-			PublicKey pubKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(HexToBytes(RSAServer.public_key_test)));			
+			PublicKey pubKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(ByteHexConversion.HexToBytes(PublicKeyDatabase.getPublicKeyById(id))));	
+			System.out.println(Arrays.toString(pubKey.getEncoded()));
 			Cipher cipher = Cipher.getInstance("RSA");
 			cipher.init(Cipher.ENCRYPT_MODE, pubKey);
 			encryptedData = cipher.doFinal(dataToEncrypt);
@@ -87,7 +74,7 @@ public class RSAServer {
 		System.out.println("----------------ENCRYPTION COMPLETED------------");		
 		return encryptedData;
 	}
-
+	
 	public static PublicKey readPublicKeyFromFile(String fileName)
 			throws IOException {
 		FileInputStream file_input = null;

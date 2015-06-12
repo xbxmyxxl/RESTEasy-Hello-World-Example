@@ -13,28 +13,26 @@ public class PostgreSql {
 	private static final int OPEN_FAILED = 1;
 	//private static final String db_table_name = "customer";
 	//private String return_string = "";
-	//private String sql_create_table= "CREATE TABLE " + db_table_name + " " +
-		//	"(ID INT PRIMARY KEY     NOT NULL," +
-		//	" NAME           TEXT    NOT NULL, " +
-		//	" AGE            INT     NOT NULL, " +
-		//	" ADDRESS        CHAR(50), " +
-		//	" SALARY         REAL)";
-	private static String sql_insert = "INSERT INTO " + "customer" + " (ID,NAME,AGE,ADDRESS,SALARY) "
-			+ "VALUES (4, 'Pasdfl', 32, 'California', 20000.00 );";
+	private static String sql_create_table= "CREATE TABLE " + "token" + " " +
+			"(ID INT PRIMARY KEY     NOT NULL," +
+		"TOKEN       CHAR(50) NOT NULL, " +
+			" TIMESTAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+	private static String sql_insert = "INSERT INTO " + "token" + " (ID,TOKEN) "
+			+ "VALUES (1,'TEST_TOKEN');";
 	//private static String sql_delete = "DELETE from " + db_table_name + " where ID=1;";
 	//private static String sql_update = "UPDATE " + db_table_name + " set ACCOUNT_BALANCE = 27000.00 where ID=1;";
 	
 	public static void main(String args[]) {
-	      db_open();
+	      databaseOpen();
 	      
-	      db_exe_stmt(sql_insert);
+	      db_exe_stmt(PostgreSql.sql_insert);
 	      //db_exe_stmt();
 	     
 	      //db_select();
 	      db_close();
 	   }
 	
-	public static void db_open( )
+	public static void databaseOpen( )
     {
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -77,14 +75,13 @@ public class PostgreSql {
 	{	
 		try {
 			if( status != OPEN_SUCCESS )
-				db_open();
+				databaseOpen();
 			if( status == OPEN_SUCCESS )
 			{
 				if( stmt == null )
 					stmt = c.createStatement();
 		        stmt.executeUpdate(sql);
 		        c.commit();
-		        db_close();
 			}else{
 				System.out.println("Can not execute command\"" + sql + "\": previosu operation failed.");
 			}
@@ -98,7 +95,7 @@ public class PostgreSql {
     {
 		try {
 			if(status != OPEN_SUCCESS)
-				db_open();
+				databaseOpen();
 			if( status == OPEN_SUCCESS )
 			{
 				if( stmt == null )
