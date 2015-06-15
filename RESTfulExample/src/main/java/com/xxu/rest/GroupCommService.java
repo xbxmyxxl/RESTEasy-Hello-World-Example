@@ -15,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.*;
 
+import com.xxu.security.*;
+import com.xxu.util.ByteHexConversion;
 @Path("/group")
 public class GroupCommService {
 
@@ -22,25 +24,34 @@ public class GroupCommService {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Integer> groupMembers = Arrays.asList(1, 2);
-	ArrayList<Integer> elements = new ArrayList<>();
-	elements.add(10);
-	elements.add(15);
+	public static List<String> groupMembers = Arrays.asList("1", "2");
+	private List<String> l = new ArrayList<String>();
+	
 
 	@GET
-	@Path("/1")
+	@Path("/key")
 	public String testString() throws IOException {
-
-		System.out.println(Arrays.toString(groupMembers.toArray()));
-		groupMembers.add(4);
-		System.out.println(Arrays.toString(groupMembers.toArray()));
-		return "test " + Arrays.toString(groupMembers.toArray());
+		String result="";
+		for (String id : groupMembers) {
+			result += ByteHexConversion.BytesToHex(RSAServer.encryptData(SymmetricKey.key ,id));
+			result += ";";
+		}
+		
+		return result;
 	}
 
 	public static void main(String[] args) throws IOException,
 			NoSuchAlgorithmException, NoSuchProviderException {
 		 GroupCommService  a = new  GroupCommService ();
 		 a.testString();
+		 System.out.println(Arrays.toString(a.l.toArray()));
+		 for (String id : groupMembers) {
+			 
+		}
+		 for (Iterator<String> iter = groupMembers.iterator(); iter.hasNext(); ) {
+	            String number = iter.next();
+	            
+	        }
 
 	}
 
