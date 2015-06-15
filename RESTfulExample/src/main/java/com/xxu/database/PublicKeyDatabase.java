@@ -1,29 +1,15 @@
 package com.xxu.database;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PublicKey;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Arrays;
-
-import com.xxu.security.RSAServer;
-import com.xxu.security.RandomStringGenerator;
-import com.xxu.type.Token;
-import com.xxu.util.ByteHexConversion;
 
 public class PublicKeyDatabase extends PostgreSql {
 	private static final String db_table_name = "UsrKeyMap";
 
-	public PublicKeyDatabase() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public static String getPublicKeyById(String ID) {
 		String query = "SELECT * FROM " + db_table_name + " where ID = " + ID
 				+ " ;";
-		ResultSet rs = PostgreSql.db_select(query);
+		ResultSet rs = PostgreSql.selectDatabase(query);
 		String publicKeyHex = "";
 		try {
 			if (rs != null) {

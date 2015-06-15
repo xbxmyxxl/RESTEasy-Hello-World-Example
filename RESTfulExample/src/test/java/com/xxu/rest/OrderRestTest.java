@@ -17,7 +17,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.client.ClientRequest;
-
+import com.xxu.type.Item;
 
 public class OrderRestTest {
 
@@ -40,8 +40,8 @@ public class OrderRestTest {
 	@Test
 	public void test() throws Exception {
          ClientRequest request = new ClientRequest(
-				"http://localhost:8080/RESTfulExample/rest/item/status/2");
-		//request.accept("application/json");
+				"http://localhost:8080/RESTfulExample/rest/item/status/1");
+		request.accept("application/json");
         ClientResponse<String> response = request.get(String.class);
         BufferedReader br = new BufferedReader(new InputStreamReader(
 				new ByteArrayInputStream(response.getEntity().getBytes())));

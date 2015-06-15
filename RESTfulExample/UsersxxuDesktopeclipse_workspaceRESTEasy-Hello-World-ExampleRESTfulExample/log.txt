@@ -1,0 +1,5 @@
+This is debug : mkyong
+This is info : mkyong
+This is warn : mkyong
+This is error : mkyong
+This is fatal : mkyong

@@ -4,35 +4,28 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
 import java.sql.Statement;
-public class PostgreSql {
+public class PostgreSql implements Database {
 	
 	private static Statement stmt = null;
 	private static Connection c = null;
-	private static int status = 1 ;
+	
 	private static final int OPEN_SUCCESS = 0;
 	private static final int OPEN_FAILED = 1;
-	//private static final String db_table_name = "customer";
-	//private String return_string = "";
-	private static String sql_create_table= "CREATE TABLE " + "token" + " " +
-			"(ID INT PRIMARY KEY     NOT NULL," +
-		"TOKEN       CHAR(50) NOT NULL, " +
-			" TIMESTAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-	private static String sql_insert = "INSERT INTO " + "token" + " (ID,TOKEN) "
-			+ "VALUES (1,'TEST_TOKEN');";
+	private static int status = OPEN_FAILED ;
 	//private static String sql_delete = "DELETE from " + db_table_name + " where ID=1;";
 	//private static String sql_update = "UPDATE " + db_table_name + " set ACCOUNT_BALANCE = 27000.00 where ID=1;";
 	
 	public static void main(String args[]) {
-	      databaseOpen();
+	      openDatabase();
 	      
-	      db_exe_stmt(PostgreSql.sql_insert);
+	     //executeDatabaseStmt(PostgreSql.sql_insert);
 	      //db_exe_stmt();
 	     
 	      //db_select();
-	      db_close();
+	      closeDatabase();
 	   }
 	
-	public static void databaseOpen( )
+	public static void openDatabase( )
     {
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -50,7 +43,7 @@ public class PostgreSql {
 		}
     }
 	
-	public static void db_close()
+	public static void closeDatabase()
     {
 		try {
 			if( status == OPEN_SUCCESS )
@@ -71,11 +64,11 @@ public class PostgreSql {
 	    }
     }
 	
-	public static void db_exe_stmt(String sql)
+	public static void executeDatabaseStmt(String sql)
 	{	
 		try {
 			if( status != OPEN_SUCCESS )
-				databaseOpen();
+				openDatabase();
 			if( status == OPEN_SUCCESS )
 			{
 				if( stmt == null )
@@ -91,11 +84,11 @@ public class PostgreSql {
 		}
     }
 	
-	public static ResultSet db_select(String  query)
+	public static ResultSet selectDatabase(String  query)
     {
 		try {
 			if(status != OPEN_SUCCESS)
-				databaseOpen();
+				openDatabase();
 			if( status == OPEN_SUCCESS )
 			{
 				if( stmt == null )
@@ -116,74 +109,6 @@ public class PostgreSql {
     }
 }
 	/*
-	public static void db_create_table( )
-    {
-		try{
-			if( status == OPEN_SUCCESS )
-			{
-				if( stmt == null )
-					stmt = c.createStatement();
-				String sql = "CREATE TABLE " + db_table_name + " " +
-						"(ID INT PRIMARY KEY     NOT NULL," +
-						" NAME           TEXT    NOT NULL, " +
-						" AGE            INT     NOT NULL, " +
-						" ADDRESS        CHAR(50), " +
-						" SALARY         REAL)";
-				stmt.executeUpdate(sql);
-				System.out.println("Table created successfully");
-			} else{
-				System.out.println("Can not create table: previosu operation failed.");
-			}
-    	  
-		} catch ( Exception e ) {
-			status = OPEN_FAILED;
-			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-			System.exit(0);
-		}
-    }
-	
-	public static void db_insert()
-    {
-		try{
-			if( status == OPEN_SUCCESS )
-			{
-				if( stmt == null )
-					stmt = c.createStatement();
-        
-				String sql = "INSERT INTO " + db_table_name + " (ID,NAME,AGE,ADDRESS,SALARY) "
-						+ "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
-				stmt.executeUpdate(sql);
-				System.out.println("Insert operation created successfully");
-        
-			} else {
-				System.out.println("Can not insert: previosu operation failed.");
-			}
-		}catch ( Exception e ) {
-			status = OPEN_FAILED;
-	        System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-	        System.exit(0);
-	      }
-    }
-	
-	public static void db_update()
-    {
-      try {
-    	  if( status == OPEN_SUCCESS )
-			{
-				if( stmt == null )
-					stmt = c.createStatement();
-		        String sql = "UPDATE " + db_table_name + " set SALARY = 27000.00 where ID=1;";
-		        stmt.executeUpdate(sql);
-			}else{
-				System.out.println("Can not select: previosu operation failed.");
-			}
-      } catch ( Exception e ) {
-    	 status = OPEN_FAILED;
-         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-         System.exit(0);
-      }
-    }
-	
 	public static void db_delete()
     {
       try {

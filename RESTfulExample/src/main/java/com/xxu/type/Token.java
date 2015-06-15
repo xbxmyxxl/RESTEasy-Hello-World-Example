@@ -6,15 +6,7 @@ public class Token {
 	private int id;
 	private String token;
 	private Timestamp timeStamp;
-	private static final long expireTime = 100000000;
-	public Token() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	private static final long expireTime = 1000;
 
 	public int getId() {
 		return id;

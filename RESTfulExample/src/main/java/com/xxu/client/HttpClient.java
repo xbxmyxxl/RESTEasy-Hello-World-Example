@@ -24,7 +24,7 @@ public class HttpClient {
 			Client c = new Client("/auth/usr/1/");
 			c.getReply();
 			String decode_result = RSAClient.decryptData(ByteHexConversion
-					.HexToBytes(c.getReply()));
+					.HexToBytes(c.getReply()),"Private.key");
 			
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpGet getRequest = new HttpGet(
@@ -48,7 +48,7 @@ public class HttpClient {
 				System.out.println(output);
 				resource += output;
 			}
-			System.out.println(RSAClient.decryptData(ByteHexConversion.HexToBytes( resource)));
+			System.out.println(RSAClient.decryptData(ByteHexConversion.HexToBytes( resource),"Private.key"));
 			httpClient.getConnectionManager().shutdown();
 
 		} catch (ClientProtocolException e) {

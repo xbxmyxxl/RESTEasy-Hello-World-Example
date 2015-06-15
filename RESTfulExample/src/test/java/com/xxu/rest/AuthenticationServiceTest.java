@@ -36,10 +36,11 @@ public class AuthenticationServiceTest {
 	@Test
 	public void test() {
 		try {
-			Client c = new Client("/auth/usr/1/");
+			Client c = new Client("/auth/usr/2/");
 			c.getReply();
 			String decode_result = RSAClient.decryptData(ByteHexConversion
-					.HexToBytes(c.getReply()));
+					.HexToBytes(c.getReply()),"Private_2.key");
+			System.out.println("the decofing result is "+decode_result);
 			c = new Client("/auth/testPost");
 			System.out.println(c.clientPost(decode_result));
 			Assert.assertEquals(c.clientPost(decode_result), 200);
@@ -56,7 +57,7 @@ public class AuthenticationServiceTest {
 			Client c = new Client("/auth/usr/1/");
 			c.getReply();
 			String decode_result = RSAClient.decryptData(ByteHexConversion
-					.HexToBytes(c.getReply()));
+					.HexToBytes(c.getReply()),"Private.key");
 			TimeUnit.SECONDS.sleep(2);
 			c = new Client("/auth/testPost");
 			System.out.println(c.clientPost(decode_result));
@@ -75,7 +76,7 @@ public class AuthenticationServiceTest {
 			Client c = new Client("/auth/usr/1/");
 			c.getReply();
 			String decode_result = RSAClient.decryptData(ByteHexConversion
-					.HexToBytes(c.getReply()));
+					.HexToBytes(c.getReply()),"Private.key");
 			c = new Client("/auth/testPost");
 			System.out.println(c.clientPost(""));
 			Assert.assertEquals(c.clientPost(""), 203);

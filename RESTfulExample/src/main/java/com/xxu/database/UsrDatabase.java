@@ -3,8 +3,6 @@ package com.xxu.database;
 import java.sql.ResultSet;
 
 import com.xxu.type.Usr;
-import com.xxu.database.*;
-import com.xxu.type.Item;
 
 public class UsrDatabase extends PostgreSql {
 
@@ -13,7 +11,7 @@ public class UsrDatabase extends PostgreSql {
 	public static Usr inquiry(String ID) {
 		String query = "SELECT * FROM " + db_table_name + " where ID = " + ID
 				+ " ;";
-		ResultSet rs = PostgreSql.db_select(query);
+		ResultSet rs = PostgreSql.selectDatabase(query);
 		Usr returnUsr = new Usr();
 
 		try {
@@ -33,26 +31,22 @@ public class UsrDatabase extends PostgreSql {
 
 				if (returnUsr != null) {
 					return returnUsr;
-				} else {
-					System.out.println("No item found which has id" + ID);
-					return null;
-				}
+				} 
 
 			} else {
 				System.out.println("No item found which has id" + ID);
-				return null;
 			}
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			return null;
 		}
+		return null;
 	}
 
 	public void insertRandomString(int id,String randomStr) {
 		try {
 			String sql_update = "UPDATE " + db_table_name
 					+ " set RANDOMSTRING = '" + randomStr + "' where ID="+id+";";
-			super.db_exe_stmt(sql_update);
+			super.executeDatabaseStmt(sql_update);
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);

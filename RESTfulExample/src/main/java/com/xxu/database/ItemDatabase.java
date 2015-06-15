@@ -6,10 +6,11 @@ import com.xxu.type.*;
 public class ItemDatabase extends PostgreSql {
 	private static final String db_table_name = "item";
 	
-	public static Item inquiry( String ID)
+	public static Item inquiryItemById( String ID)
     {
 		String query = "SELECT * FROM " + db_table_name + " where ID = " + ID +" ;";
-		ResultSet rs = PostgreSql.db_select(query);
+		System.out.println(query);
+		ResultSet rs = PostgreSql.selectDatabase(query);
 		Item return_item = new Item();
 		
 		try{
@@ -32,27 +33,21 @@ public class ItemDatabase extends PostgreSql {
 				{
 					return return_item;
 				}
-				else 
-				{
-					System.out.println("No item found which has id" + ID );
-					return null;
-				}
-			
 			}
 			else
 			{
 				System.out.println("No item found which has id" + ID );
-				return null;
 			}
 		}
 		catch (Exception e) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-			return null;
+			
 		}
+		return null;
     }
 	
 	public static void main(String args[]) {
-		Item a = ItemDatabase.inquiry("1");
+		Item a = ItemDatabase.inquiryItemById("1");
 		a.print();
 	 }
 

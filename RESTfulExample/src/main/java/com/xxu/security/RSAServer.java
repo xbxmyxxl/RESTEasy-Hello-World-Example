@@ -1,5 +1,4 @@
 package com.xxu.security;
-import java.util.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,7 +17,6 @@ import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
 
-import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.Cipher;
 

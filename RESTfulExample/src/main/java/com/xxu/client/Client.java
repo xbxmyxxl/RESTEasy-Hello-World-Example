@@ -2,18 +2,13 @@ package com.xxu.client;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.math.BigInteger;
 
 import org.apache.http.client.ClientProtocolException;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
-import com.xxu.type.Item;
  
 public class Client {
 	ClientRequest request;
