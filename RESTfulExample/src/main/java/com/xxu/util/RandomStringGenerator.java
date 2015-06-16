@@ -1,4 +1,4 @@
-package com.xxu.security;
+package com.xxu.util;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

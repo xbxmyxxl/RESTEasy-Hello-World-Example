@@ -13,11 +13,13 @@ import com.xxu.database.ItemDatabase;
 import com.xxu.type.*;
 
 import org.apache.http.client.ClientProtocolException;
+import org.apache.log4j.Logger;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
 public class ItemServiceClient {
 	ClientRequest request;
+	final Logger logger = Logger.getLogger(ItemServiceClient.class);
 
 	public ItemServiceClient(String ID) {
 		try {
