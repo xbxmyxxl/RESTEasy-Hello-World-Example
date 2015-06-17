@@ -1,7 +1,9 @@
-package com.xxu.client;
+package com.xxu.rest;
 
 import java.io.BufferedReader;
+
 import com.xxu.util.*;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -10,14 +12,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.xxu.client.Client;
 import com.xxu.security.RSAClient;
 import com.xxu.util.ByteHexConversion;
 
 public class HttpClient {
 
-	public HttpClient() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public static void main(String[] args) {
 		try {

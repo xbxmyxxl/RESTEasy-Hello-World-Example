@@ -16,11 +16,6 @@
 	<classpathentry including="**/*.java" kind="src" path="src/test/resources"/>
 	<classpathentry kind="var" path="M2_REPO/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jboss/resteasy/resteasy-jaxrs/2.2.1.GA/resteasy-jaxrs-2.2.1.GA.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jboss/resteasy/jaxrs-api/2.2.1.GA/jaxrs-api-2.2.1.GA.jar"/>
@@ -45,5 +40,10 @@
 	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-tests.jar"/>
 	<classpathentry kind="lib" path="C:/Users/xxu/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-test-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

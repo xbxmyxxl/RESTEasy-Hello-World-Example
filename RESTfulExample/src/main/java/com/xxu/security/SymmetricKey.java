@@ -16,10 +16,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.log4j.Logger;
 
+import com.xxu.rest.GroupCommService;
 import com.xxu.util.ByteHexConversion;
 
 public class SymmetricKey {
-
+	final static Logger logger = Logger.getLogger(SymmetricKey.class);
 	static String algorithm = "DES";
 	public static final String key = "3D9D40976829CD98";
 	public static List<String> keyList = new ArrayList<String>();
@@ -40,15 +41,12 @@ public class SymmetricKey {
 	public static void addNewKey() throws Exception {
 		SecretKey symKey = KeyGenerator.getInstance(algorithm).generateKey();
 		keyList.add(ByteHexConversion.BytesToHex(symKey.getEncoded()));
-
-	}
-	
-	public static void addGroupMember() throws Exception {
-		
+		logger.info("new key added for all"+ ByteHexConversion.BytesToHex(symKey.getEncoded()));
 
 	}
 	
 	public static void removeGroupMember() throws Exception {
+		logger.info("removing a member, generating new key for group member");
 		addNewKey();
 
 	}
@@ -57,7 +55,7 @@ public class SymmetricKey {
 			BadPaddingException, IllegalBlockSizeException,
 			NoSuchPaddingException, NoSuchAlgorithmException, Exception {
 		
-		if (keyList == null) {
+		if (keyList == null ||keyList.size() == 0) {
 			addNewKey();
 		}
 		

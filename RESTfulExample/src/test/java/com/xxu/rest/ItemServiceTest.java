@@ -19,7 +19,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.client.ClientRequest;
 import com.xxu.type.Item;
 
-public class OrderRestTest {
+public class ItemServiceTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

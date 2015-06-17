@@ -4,7 +4,13 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 import com.xxu.type.Token;
-
+/**
+ * @author xxu
+ * 
+ * 
+ *         class for getting token of user by id from database. The token may expired in a certain time
+ *    
+ */
 public class TokenDatabase extends PostgreSql {
 	private static final String db_table_name = "token";
 
@@ -30,10 +36,10 @@ public class TokenDatabase extends PostgreSql {
 					return return_item;
 				}
 			} else {
-				System.out.println("No item found which has id" + ID);
+				logger.warn("No item found which has id" + ID);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			logger.warn(e.getClass().getName() + ": " + e.getMessage());
 
 		}
 		return null;
@@ -57,6 +63,10 @@ public class TokenDatabase extends PostgreSql {
 		return (rs != null && !return_item.isTokenExpired());
 	}
 
+	/**
+	 * @param ID
+	 * @return the token only if it is not expired
+	 */
 	public static String getTokenById(String ID) {
 
 		Token token = TokenDatabase.inquiryTokenById(ID);
@@ -68,6 +78,13 @@ public class TokenDatabase extends PostgreSql {
 		return token.getToken().replaceAll("\\s+", "");
 	}
 
+	
+	/**
+	 * @param ID
+	 * @param token
+	 * 
+	 * insert the token into the database if the user does not exist in database, if such an ID already exists, update the time stamp and token instead
+	 */
 	public static void insertTokenById(String ID, String token) {
 		Token return_item = inquiryTokenById(ID);
 		String query = "INSERT INTO " + db_table_name + " (ID,TOKEN) "
@@ -90,20 +107,14 @@ public class TokenDatabase extends PostgreSql {
 
 	}
 
+		
+	/**
+	 * delete the token that lasts for more than 10 seconds 
+	 */
 	public void DeleteExpiredToken() {
 		String sql_delete = "DELETE FROM token WHERE timestamp < current_timestamp - interval '10' second";
 		super.executeDatabaseStmt(sql_delete);
 	}
 
-	public static void main(String[] args) {
-		
-		try {
-			TokenDatabase.varifyToken("49ald2mic1b2g1u1ikbj28708d");
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-
-	}
 
 }

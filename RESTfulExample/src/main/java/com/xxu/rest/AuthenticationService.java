@@ -15,9 +15,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 
-
-//import java.util.Base64;
-import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 
 import com.xxu.security.*;
@@ -26,56 +24,90 @@ import javax.ws.rs.PathParam;
 
 @Path("/auth")
 public class AuthenticationService {
+	final Logger logger = Logger.getLogger(AuthenticationService.class);
+
+	/**
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 * 
+	 *             require the encoded token by id of the user, the
+	 */
 	@GET
 	@Path("/usr/{id}")
 	public String encodeRandomString(@PathParam("id") String id)
 			throws IOException {
 
+		/* generate the random string */
 		String random_string = RandomStringGenerator.StringGenerator();
-		System.out.println("the randomly generated string is" + random_string);
+		logger.info("the randomly generated string is" + random_string);
+
+		/* store the random string into database */
 		TokenDatabase.insertTokenById(id, random_string);
 
-		// encrypt the data
+		/* encrypt the data using the public key retrieved from the database */
 		byte[] encryptedData = RSAServer.encryptData(random_string, id);
-		System.out.println("id is :"+id+ByteHexConversion.BytesToHex(encryptedData));
+		logger.info("id is :" + id
+				+ ByteHexConversion.BytesToHex(encryptedData));
 
 		return ByteHexConversion.BytesToHex(encryptedData);
 	}
 
+	/**
+	 * @param token
+	 * @return
+	 * @throws Exception
+	 * 
+	 *             authentication using header
+	 */
 	@GET
 	@Path("/testHeader")
-	
 	public Response putBasic(@HeaderParam("token") String token)
 			throws Exception {
 
 		try {
-			System.out.println("new client with token: " + token);
+			logger.info("new client with token: " + token);
+			/* check whether user submit any authentication information */
 			if (token == null || token.isEmpty()) {
 				return Response.status(203)
 						.entity(" 203 No Authentication Information").build();
 			}
 
+			/* Verify the token */
 			if (TokenDatabase.varifyToken(token)) {
-
+				
+				/* valid */
 				return Response.status(200).entity("200 client authenticated")
 						.build();
 			} else {
+				
+				/* invalid */
 				return Response.status(403).entity("403 Forbidden").build();
 			}
 
 		} catch (Exception e) {
+			
+			/*error occurs*/
 			e.printStackTrace();
+			logger.warn(e);
 			return Response.status(500)
 					.entity("Server was not able to process your request")
 					.build();
 		}
 	}
 
+	/**
+	 * @param token
+	 * @return
+	 * @throws Exception
+	 * 
+	 *             authentication using post method, please see above for explanations
+	 */
 	@POST
 	@Path("/testPost")
 	public Response authenticateUsrToken(String token) throws Exception {
 		try {
-			System.out.println("new client with token: " + token);
+			logger.info("new client with token: " + token);
 			if (token == null || token.isEmpty()) {
 				return Response.status(203)
 						.entity(" 203 No Authentication Information").build();
@@ -95,25 +127,6 @@ public class AuthenticationService {
 					.entity("Server was not able to process your request")
 					.build();
 		}
-
-		
-	}
-
-	/*private boolean authenticateUsr(String id, String clientStr) {
-		if (TokenDatabase.getTokenById(id) == null)
-			return false;
-		System.out.println("Expected from user: "
-				+ TokenDatabase.getTokenById(id) + "\ngetected from user: "
-				+ clientStr);
-		return (clientStr.replaceAll("\\s+", "")).equals(TokenDatabase
-				.getTokenById(id).replaceAll("\\s+", ""));
-
-	}*/
-
-	public static void main(String[] args) throws IOException,
-			NoSuchAlgorithmException, NoSuchProviderException {
-		//AuthenticationService s = new AuthenticationService();
-		// s.authenticateUsr("1","49ald2mic1b2g1u1ikbj28708d");
 
 	}
 

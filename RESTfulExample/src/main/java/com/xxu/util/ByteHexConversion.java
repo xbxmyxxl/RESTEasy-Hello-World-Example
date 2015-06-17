@@ -1,5 +1,9 @@
 package com.xxu.util;
 
+/**
+ * @author xxu
+ * convert byte[] to string and backwards
+ */
 public class ByteHexConversion {
 
 	final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();

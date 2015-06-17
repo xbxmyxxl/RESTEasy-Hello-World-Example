@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.xxu.client.GroupClient;
 import com.xxu.database.TokenDatabase;
 import com.xxu.security.RSAServer;
+import com.xxu.security.SymmetricKey;
 import com.xxu.util.ByteHexConversion;
 import com.xxu.util.RandomStringGenerator;
 
@@ -21,36 +22,69 @@ import java.util.*;
 import com.xxu.security.*;
 import com.xxu.util.ByteHexConversion;
 
+/**
+ * @author xxu
+ *
+ *         generate group key and send to each usr encoded by their own public
+ *         key
+ */
 @Path("/group")
 public class GroupCommService {
 	final Logger logger = Logger.getLogger(GroupCommService.class);
 
-	public GroupCommService() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static List<String> groupMembers = Arrays.asList("1", "2");
 	private List<String> l = new ArrayList<String>();
 
+	/**
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 * @throws Exception
+	 * 
+	 *             send the group keys(all the currently used valid keys ) to
+	 *             user encoded by their public key
+	 */
 	@GET
 	@Path("/{param}")
 	public String sendKey(@PathParam("param") String id) throws IOException,
 			Exception {
 		String result = "";
-		System.out.println("keylist from symetric key" + SymmetricKey.keyList);
-		List<String> keyList = SymmetricKey.getKeyList();
-		for (int i = keyList.size()-1; i >= 0; i--) {
 
+		/* check if the parameter contains only number */
+		if (!id.matches("[0-9]+"))
+			return null;
+
+		logger.info("keylist from symetric key" + SymmetricKey.keyList);
+
+		/* get the currently using keys */
+		List<String> keyList = SymmetricKey.getKeyList();
+
+		/* iterate through the keys and encode them using client's public key */
+		for (int i = keyList.size() - 1; i >= 0; i--) {
+
+			/* encrypt the key */
 			result += ByteHexConversion.BytesToHex(RSAServer.encryptData(
 					keyList.get(i), id));
+
+			/* this is just formatting */
 			if (i != 0)
 				result += ";";
-			logger.info("sending key " + keyList.get(i));
+
+			logger.info("sending key " + i + "/" + keyList.size() + " :"
+					+ keyList.get(i));
+
 		}
-		// logger.info();
 		return result;
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 *             testing data
+	 * 
+	 *             alwaysreturn the string"this is group message"
+	 *             encoded using the symmetric key
+	 */
 	@GET
 	@Path("/testdata")
 	public String sendEncodedString() throws Exception {
@@ -58,20 +92,16 @@ public class GroupCommService {
 		return ByteHexConversion.BytesToHex(SymmetricKey.encryptData(testdata));
 	}
 
-	public static void main(String[] args) throws IOException,
-			NoSuchAlgorithmException, NoSuchProviderException, Exception {
-		GroupCommService a = new GroupCommService();
-		System.out.println("hello" + a.sendKey("1"));
-		// System.out.println(Arrays.toString(a.l.toArray()));
-		// for (String id : groupMembers) {
-
-		// }
-		// for (Iterator<String> iter = groupMembers.iterator(); iter.hasNext();
-		// ) {
-		// String number = iter.next();
-
-		// }
-
+	/**
+	 * @throws Exception
+	 *             whenever a group member is removed always generate a new key
+	 *             and using it immediately
+	 */
+	@GET
+	@Path("/remove")
+	public void removeGroupMember() throws Exception {
+		SymmetricKey.removeGroupMember();
 	}
+
 
 }

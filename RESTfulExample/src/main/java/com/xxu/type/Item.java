@@ -4,6 +4,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author xxu
+ *
+ *         item type, which supports formatting in xml and json
+ */
 @XmlRootElement(name = "item")
 public class Item {
 	private int id;

@@ -1,12 +1,13 @@
 package com.xxu.type;
 
 import java.sql.Timestamp;
+
 public class Token {
 
 	private int id;
 	private String token;
 	private Timestamp timeStamp;
-	private static final long expireTime = 1000;
+	private static final long expireTime = 1000;/* one second */
 
 	public int getId() {
 		return id;
@@ -31,14 +32,22 @@ public class Token {
 	public void setTimeStamp(Timestamp timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-	
-	public boolean isTokenExpired() {
 
+	/**
+	 * @return boolean indicate it is expired or not
+	 */
+	public boolean isTokenExpired() {
+		/*
+		 * calculate the difference the time stamp with the current time, and
+		 * compare to the expireTime constant to decide whether it is expired or
+		 * not. Change the expireTime, if we want a longer expire time,
+		 * currently it is set to 1 second, for testing purposes.
+		 */
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 		long diff = currentTime.getTime() - timeStamp.getTime();
-		System.out.println("the diff in time is"+diff);
+		System.out.println("the diff in time is" + diff);
 
-	    return diff > expireTime;
+		return diff > expireTime;
 	}
 
 	@Override
@@ -46,5 +55,5 @@ public class Token {
 		return "Token [id=" + id + ", token=" + token + ", timeStamp="
 				+ timeStamp + "]";
 	}
-	
+
 }

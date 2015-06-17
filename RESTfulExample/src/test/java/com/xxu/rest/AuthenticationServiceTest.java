@@ -1,7 +1,5 @@
 package com.xxu.rest;
 
-import static org.junit.Assert.*;
-
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -78,7 +76,6 @@ public class AuthenticationServiceTest {
 			String decode_result = RSAClient.decryptData(ByteHexConversion
 					.HexToBytes(c.getReply()),"Private.key");
 			c = new Client("/auth/testPost");
-			System.out.println(c.clientPost(""));
 			Assert.assertEquals(c.clientPost(""), 203);
 		} catch (Exception e) {
 
