@@ -3,7 +3,6 @@ package com.xxu.rest;
 import com.xxu.security.RSAServer;
 import com.xxu.type.*;
 import com.xxu.util.ByteHexConversion;
-import com.xxu.client.Client;
 import com.xxu.database.*;
 
 import javax.ws.rs.GET;

@@ -1,0 +1,24 @@
+-- Database: testdata
+
+-- DROP DATABASE testdata;
+
+CREATE DATABASE testdata
+  WITH OWNER = xxu
+       ENCODING = 'WIN1252'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'English_United States.1252'
+       LC_CTYPE = 'English_United States.1252'
+       CONNECTION LIMIT = -1;
+
+
+
+-- DROP SCHEMA public;
+
+CREATE SCHEMA public
+  AUTHORIZATION xxu;
+
+GRANT ALL ON SCHEMA public TO xxu;
+GRANT ALL ON SCHEMA public TO public;
+COMMENT ON SCHEMA public
+  IS 'standard public schema';
+

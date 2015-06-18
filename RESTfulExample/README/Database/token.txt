@@ -1,0 +1,16 @@
+-- Table: token
+
+-- DROP TABLE token;
+
+CREATE TABLE token
+(
+  id integer NOT NULL,
+  token character(50) NOT NULL,
+  "timestamp" timestamp without time zone DEFAULT now(),
+  CONSTRAINT token_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE token
+  OWNER TO postgres;

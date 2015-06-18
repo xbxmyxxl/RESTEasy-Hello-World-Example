@@ -1,0 +1,20 @@
+-- Table: usr
+
+-- DROP TABLE usr;
+
+CREATE TABLE usr
+(
+  id integer NOT NULL,
+  name text NOT NULL,
+  age integer NOT NULL,
+  address character(50),
+  account_balance real,
+  randomstring character(100),
+  public_key character(1024),
+  CONSTRAINT company5_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE usr
+  OWNER TO postgres;

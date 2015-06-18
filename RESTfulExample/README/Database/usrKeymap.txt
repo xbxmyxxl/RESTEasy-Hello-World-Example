@@ -1,0 +1,26 @@
+-- Table: usrkeymap
+
+-- DROP TABLE usrkeymap;
+
+CREATE TABLE usrkeymap
+(
+  id integer NOT NULL,
+  publickey character(2048),
+  CONSTRAINT testdata_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE usrkeymap
+  OWNER TO postgres;
+
+
+  -------------------data stored -------------
+1 30820122300D06092A864886F70D01010105000382010F003082010A0282010100824FFB6A847C70ABCE6B108E4710BBC11FF3D7D1A0B62A705137B35473D50A6A0BF85AA89B93726AD7A79327D876FA0F8CE9BC9C9BFC7585C30387FB67D4185A7E9C9183D90E425CABA1CB04B650AE5C99EF8BADB6B24A060E5AD883BCD0A0284EAA7D4D8333039F6CBD3CD42A95D09FD422A0B3A1D806C32F256FBF652E8B05C31C790C0DEEBC791E0BE99234BAEDF0BFB24A655BEDC42F0598DC1FBA98FF3903FDFFF65C693A536B69DE0CE41DF5B69BFADF712066924023C5997D9BDBD9318EE9A4D4083A73159E2D02E5BDBB73EB7B985577D6C8B2749F895DC0FD04DC0C0B500C4C0E7C86B13E32CBCB7969817887B647E89060C5E0756FEDBE2DA71A630203010001    
+
+2 30820122300D06092A864886F70D01010105000382010F003082010A02820101009E421B1618BA
+			641A6D19BC51107DA739A038F2D4106D1FD3853070F8956EEC74A2181AB9D6CBF8A45999CB60F0406EC72A5ED146DFB9CAA197501E0B6D43
+			47308F3E2A3191553FEC62FBFFD3A4F63A0787C85966240497820BF2F73AD14F6AD2EA1763099104C7C85E295F45897EAEF3BA536708C6
+			7B18CD53AC3B31727F315C63C100FB5E6DAC197389F29C4F95AFD1F49D285FE2AD31A9E1D30CD5CA8321E1E82C0995EB4816997922FB8
+			7C69EAA9EC66C8B46813F722091F3448FB9971C7AFC310896594EBBE656A7BC180A2C15238915FD7A780A4B15A057C3243FFD6460FDB
+			DC394B23FC95B0611BE4FDEE3532A515F6485216D3CD0D2A77FB1986342930203010001                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

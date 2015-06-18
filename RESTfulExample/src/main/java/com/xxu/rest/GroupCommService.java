@@ -8,19 +8,12 @@ import javax.ws.rs.PathParam;
 
 import org.apache.log4j.Logger;
 
-import com.xxu.client.GroupClient;
-import com.xxu.database.TokenDatabase;
 import com.xxu.security.RSAServer;
 import com.xxu.security.SymmetricKey;
 import com.xxu.util.ByteHexConversion;
-import com.xxu.util.RandomStringGenerator;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.util.*;
 
-import com.xxu.security.*;
-import com.xxu.util.ByteHexConversion;
 
 /**
  * @author xxu
@@ -32,8 +25,6 @@ import com.xxu.util.ByteHexConversion;
 public class GroupCommService {
 	final Logger logger = Logger.getLogger(GroupCommService.class);
 
-	public static List<String> groupMembers = Arrays.asList("1", "2");
-	private List<String> l = new ArrayList<String>();
 
 	/**
 	 * @param id
@@ -82,7 +73,7 @@ public class GroupCommService {
 	 * @throws Exception
 	 *             testing data
 	 * 
-	 *             alwaysreturn the string"this is group message"
+	 *             always return the string"this is group message"
 	 *             encoded using the symmetric key
 	 */
 	@GET

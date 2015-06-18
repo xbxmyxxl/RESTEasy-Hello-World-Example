@@ -22,7 +22,7 @@ public class RestApplication extends Application {
 	 * 
 	 * Item : retrieving item info from database . Authentication : authenticate
 	 * user using RSA keys exchange. GroupComm : message only visible for group
-	 * members, using group key.
+	 * members, encoded using group key.
 	 * 
 	 */
 	public RestApplication() {

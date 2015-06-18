@@ -3,8 +3,6 @@ package com.xxu.rest;
 import com.xxu.util.*;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 import javax.ws.rs.Path;
 
@@ -16,7 +14,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 
 import com.xxu.security.*;
 
@@ -67,6 +64,7 @@ public class AuthenticationService {
 
 		try {
 			logger.info("new client with token: " + token);
+			
 			/* check whether user submit any authentication information */
 			if (token == null || token.isEmpty()) {
 				return Response.status(203)

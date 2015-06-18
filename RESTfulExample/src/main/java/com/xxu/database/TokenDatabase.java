@@ -3,17 +3,28 @@ package com.xxu.database;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
+import org.apache.log4j.Logger;
+
 import com.xxu.type.Token;
+
 /**
  * @author xxu
  * 
  * 
- *         class for getting token of user by id from database. The token may expired in a certain time
- *    
+ *         class for getting token of user by id from database. The token may
+ *         expired in a certain time
+ * 
  */
 public class TokenDatabase extends PostgreSql {
+	final static Logger logger = Logger.getLogger(TokenDatabase.class);
 	private static final String db_table_name = "token";
 
+	/**
+	 * @param ID
+	 * @return
+	 * 
+	 *         return the token of this usr from database
+	 */
 	public static Token inquiryTokenById(String ID) {
 		String query = "SELECT * FROM " + db_table_name + " where ID = " + ID
 				+ " ;";
@@ -45,6 +56,14 @@ public class TokenDatabase extends PostgreSql {
 		return null;
 	}
 
+	/**
+	 * @param clientToken
+	 * @return
+	 * @throws Exception
+	 * 
+	 *             verify if it is a valid token and whether it expires at the
+	 *             same time
+	 */
 	public static boolean varifyToken(String clientToken) throws Exception {
 		String query = "SELECT * FROM " + db_table_name + " where token = '"
 				+ clientToken + "' ;";
@@ -59,7 +78,6 @@ public class TokenDatabase extends PostgreSql {
 			return_item.setToken(token);
 			return_item.setTimeStamp(timestamp);
 		}
-		System.out.println(return_item.isTokenExpired());
 		return (rs != null && !return_item.isTokenExpired());
 	}
 
@@ -70,7 +88,7 @@ public class TokenDatabase extends PostgreSql {
 	public static String getTokenById(String ID) {
 
 		Token token = TokenDatabase.inquiryTokenById(ID);
-		System.out.println(token);
+		logger.info("generated token is: "+ token);
 		if (token.getTimeStamp() == null)
 			return null;
 		if (token.isTokenExpired())
@@ -78,12 +96,13 @@ public class TokenDatabase extends PostgreSql {
 		return token.getToken().replaceAll("\\s+", "");
 	}
 
-	
 	/**
 	 * @param ID
 	 * @param token
 	 * 
-	 * insert the token into the database if the user does not exist in database, if such an ID already exists, update the time stamp and token instead
+	 *            insert the token into the database if the user does not exist
+	 *            in database. If such an ID already exists, update the time
+	 *            stamp and token instead
 	 */
 	public static void insertTokenById(String ID, String token) {
 		Token return_item = inquiryTokenById(ID);
@@ -107,14 +126,12 @@ public class TokenDatabase extends PostgreSql {
 
 	}
 
-		
 	/**
-	 * delete the token that lasts for more than 10 seconds 
+	 * delete the token that lasts for more than 10 seconds
 	 */
 	public void DeleteExpiredToken() {
 		String sql_delete = "DELETE FROM token WHERE timestamp < current_timestamp - interval '10' second";
 		super.executeDatabaseStmt(sql_delete);
 	}
-
 
 }

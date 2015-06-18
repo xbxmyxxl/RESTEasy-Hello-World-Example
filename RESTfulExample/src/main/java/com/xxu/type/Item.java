@@ -18,7 +18,7 @@ public class Item {
 	private float reduced_price;
 	private int quantity;
 
-	// Getters and setters
+	/* Getters and setters */
 	@XmlElement
 	public String getName() {
 		return name;

@@ -38,7 +38,7 @@ public class Token {
 	 */
 	public boolean isTokenExpired() {
 		/*
-		 * calculate the difference the time stamp with the current time, and
+		 * calculate the difference of the time stamp with the current time, and
 		 * compare to the expireTime constant to decide whether it is expired or
 		 * not. Change the expireTime, if we want a longer expire time,
 		 * currently it is set to 1 second, for testing purposes.

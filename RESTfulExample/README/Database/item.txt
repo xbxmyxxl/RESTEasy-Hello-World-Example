@@ -1,0 +1,27 @@
+-- Table: item
+
+-- DROP TABLE item;
+
+CREATE TABLE item
+(
+  id integer NOT NULL,
+  name text NOT NULL,
+  brand character(50),
+  price real,
+  reduced_price integer,
+  quantity integer,
+  CONSTRAINT company6_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE item
+  OWNER TO postgres;
+
+
+
+
+
+
+
+--------------------data stored------

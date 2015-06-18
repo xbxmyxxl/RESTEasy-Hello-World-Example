@@ -28,7 +28,7 @@ public class PostgreSql {
 	private static int status = OPEN_FAILED;
 
 	/**
-	 * open the database, need to set up the server beforehand if this step
+	 * open the database, need to set up the server beforehand. If this step
 	 * failed, status will be set to OPEN_FAILED, otherwise OPEN_SUCCESS
 	 */
 	public static void openDatabase() {

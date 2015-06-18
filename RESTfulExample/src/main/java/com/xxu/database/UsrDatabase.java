@@ -2,11 +2,14 @@ package com.xxu.database;
 
 import java.sql.ResultSet;
 
+import org.apache.log4j.Logger;
+
 import com.xxu.type.Usr;
 
 public class UsrDatabase extends PostgreSql {
 
 	private static final String db_table_name = "usr";
+	final static Logger logger = Logger.getLogger(UsrDatabase.class);
 
 	public static Usr inquiry(String ID) {
 		String query = "SELECT * FROM " + db_table_name + " where ID = " + ID
@@ -31,35 +34,28 @@ public class UsrDatabase extends PostgreSql {
 
 				if (returnUsr != null) {
 					return returnUsr;
-				} 
+				}
 
 			} else {
-				System.out.println("No item found which has id" + ID);
+				logger.warn("No item found which has id" + ID);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			logger.warn(e.getClass().getName() + ": " + e.getMessage());
 		}
 		return null;
 	}
 
-	public void insertRandomString(int id,String randomStr) {
+	public void insertRandomString(int id, String randomStr) {
 		try {
 			String sql_update = "UPDATE " + db_table_name
-					+ " set RANDOMSTRING = '" + randomStr + "' where ID="+id+";";
+					+ " set RANDOMSTRING = '" + randomStr + "' where ID=" + id
+					+ ";";
 			super.executeDatabaseStmt(sql_update);
 		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			logger.warn(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 
-	}
-
-	public static void main(String args[]) {
-		UsrDatabase temp = new UsrDatabase();
-		String insert= "hello world";
-		temp.insertRandomString(1,insert);
-		Usr a = UsrDatabase.inquiry("1");
-		System.out.println(a.toString());
 	}
 
 }

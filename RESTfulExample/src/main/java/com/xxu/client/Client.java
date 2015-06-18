@@ -70,7 +70,6 @@ public class Client {
 			String returnStr = "";
 
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
 				returnStr += output;
 			}
 			logger.info("Output from Server: " + returnStr);
